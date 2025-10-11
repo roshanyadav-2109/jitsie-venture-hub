@@ -1,5 +1,3 @@
-import TextType from './TextType';
-
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-28 pb-16 lg:pt-20 lg:pb-20">
@@ -7,22 +5,16 @@ const Hero = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text content on the left */}
-          <div className="text-center lg:text-left space-y-6 animate-fade-in-up">
+          <div className="text-left space-y-6 animate-fade-in-up">
             <div>
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold uppercase text-foreground text-center">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold uppercase bg-gradient-primary bg-clip-text text-transparent">
                 JITSIE
               </h1>
-              <TextType
-                as="p"
-                text={["The Entrepreneurship Society, IIT Madras"]}
-                typingSpeed={75}
-                loop={false}
-                showCursor={true}
-                cursorCharacter="|"
-                className="text-base md:text-lg font-semibold uppercase tracking-wider text-foreground mt-2 text-center"
-              />
+              <p className="text-base md:text-lg font-semibold uppercase tracking-wider text-foreground mt-2">
+                The Entrepreneurship Society, IIT Madras
+              </p>
             </div>
-            <p className="text-base text-muted-foreground leading-relaxed text-left">
+            <p className="text-base text-muted-foreground leading-relaxed">
               The Jamsetji Tata Society for Innovation and Entrepreneurship
               (JITSIE) is a dedicated society at IIT Madras that fosters
               deep-tech innovation by cultivating a supportive ecosystem for
@@ -40,35 +32,35 @@ const Hero = () => {
           <div className="grid grid-cols-6 grid-rows-2 gap-4 animate-fade-in-up h-[400px]">
             <div className="col-span-3 row-span-1">
               <img
-                src="/placeholder.svg"
+                src="/placeholder.svg" // Replace with your image
                 alt="Jitsie Event 1"
                 className="w-full h-full object-cover rounded-2xl shadow-lg"
               />
             </div>
             <div className="col-span-3 row-span-1">
               <img
-                src="/placeholder.svg"
+                src="/placeholder.svg" // Replace with your image
                 alt="Jitsie Team"
                 className="w-full h-full object-cover rounded-2xl shadow-lg"
               />
             </div>
             <div className="col-span-2 row-span-1">
               <img
-                src="/placeholder.svg"
+                src="/placeholder.svg" // Replace with your image
                 alt="Jitsie Startup"
                 className="w-full h-full object-cover rounded-2xl shadow-lg"
               />
             </div>
             <div className="col-span-2 row-span-1">
               <img
-                src="/placeholder.svg"
+                src="/placeholder.svg" // Replace with your image
                 alt="Jitsie Workshop"
                 className="w-full h-full object-cover rounded-2xl shadow-lg"
               />
             </div>
             <div className="col-span-2 row-span-1">
               <img
-                src="/placeholder.svg"
+                src="/placeholder.svg" // Replace with your image
                 alt="Jitsie Pitch Day"
                 className="w-full h-full object-cover rounded-2xl shadow-lg"
               />
