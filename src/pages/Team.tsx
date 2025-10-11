@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Users, Award, Target, Zap } from "lucide-react";
+import Hero from "@/components/Hero";
 
 const Team = () => {
   const boardMembers = [
@@ -76,20 +77,9 @@ const Team = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       {/* Hero Section */}
-      <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 bg-gradient-hero">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
-            <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-              Meet Our <span className="bg-gradient-primary bg-clip-text text-transparent">Team</span>
-            </h1>
-            <p className="text-xl lg:text-2xl text-muted-foreground">
-              The passionate individuals driving JITSIE's mission forward
-            </p>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* Board Members */}
       <section className="py-16 lg:py-24">
@@ -172,7 +162,8 @@ const Team = () => {
               Executive Core Committee
             </h2>
             <p className="text-lg text-muted-foreground">
-              Central decision-making body responsible for strategic initiatives
+              Central decision-making body responsible for strategic
+              initiatives
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
@@ -208,10 +199,16 @@ const Team = () => {
           </div>
           <div className="space-y-12 lg:space-y-16">
             {verticalHeads.map((vertical, verticalIndex) => (
-              <div key={vertical.category} style={{ animationDelay: `${verticalIndex * 100}ms` }}>
+              <div
+                key={vertical.category}
+                style={{ animationDelay: `${verticalIndex * 100}ms` }}
+              >
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center">
-                    <vertical.icon className="text-primary-foreground" size={24} />
+                    <vertical.icon
+                      className="text-primary-foreground"
+                      size={24}
+                    />
                   </div>
                   <h3 className="text-2xl lg:text-3xl font-bold text-foreground">
                     {vertical.category}
@@ -248,7 +245,8 @@ const Team = () => {
               Want to Join Our Team?
             </h2>
             <p className="text-lg lg:text-xl text-muted-foreground">
-              We're always looking for passionate individuals to join our mission
+              We're always looking for passionate individuals to join our
+              mission
             </p>
             <button className="px-8 py-4 rounded-xl bg-gradient-primary text-primary-foreground font-semibold text-lg shadow-glow hover:shadow-elegant transition-all hover:scale-105">
               Apply Now
