@@ -47,22 +47,7 @@ const Hero = () => {
               entrepreneurial spirit, empowering the next generation of
               deep-tech pioneers to build ventures that will redefine tomorrow.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link to="/initiatives">
-                <Button size="lg" className="shadow-glow group">
-                  Explore Initiatives
-                  <ArrowRight
-                    className="ml-2 group-hover:translate-x-1 transition-transform"
-                    size={20}
-                  />
-                </Button>
-              </Link>
-              <Link to="/join">
-                <Button size="lg" variant="outline">
-                  Join Our Community
-                </Button>
-              </Link>
-            </div>
+            {/* CTA Buttons have been removed from here */}
           </div>
         </div>
       </div>
