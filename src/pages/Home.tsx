@@ -8,7 +8,6 @@ import {
   Network,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import CounterCard from "@/components/CounterCard";
@@ -170,19 +169,11 @@ const Home = () => {
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               We are proud to partner with leading organizations that share our
-              vision for a thriving deep-tech ecosystem.
+              vision for a thriving deep-tech ecosystem. You can learn more about them on our{" "}
+              <Link to="/partners" className="text-primary underline-offset-4 hover:underline">
+                partners page
+              </Link>.
             </p>
-          </div>
-          <div className="flex justify-center">
-            <Link to="/partners">
-              <Button size="lg" variant="outline" className="group">
-                View All Partners
-                <ArrowRight
-                  className="ml-2 group-hover:translate-x-1 transition-transform"
-                  size={20}
-                />
-              </Button>
-            </Link>
           </div>
         </div>
       </section>
