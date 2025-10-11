@@ -1,43 +1,36 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Target, Lightbulb, Rocket } from "lucide-react";
+import Hero from "@/components/Hero";
 
 const About = () => {
   const missions = [
     {
       icon: Lightbulb,
-      title: "Imagine",
-      description: "Foster creative thinking and ideation through workshops, competitions, and community events",
+      title: "Imagine Boldly",
+      description:
+        "Foster creative thinking and ideation through workshops, competitions, and community events",
     },
     {
       icon: Target,
-      title: "Incubate",
-      description: "Provide structured support, mentorship, and resources to transform ideas into viable ventures",
+      title: "Incubate with Purpose",
+      description:
+        "Provide structured support, mentorship, and resources to transform ideas into viable ventures",
     },
     {
       icon: Rocket,
-      title: "Launch",
-      description: "Connect startups with investors, partners, and markets to scale their innovations",
+      title: "Ignite the Future",
+      description:
+        "Connect startups with investors, partners, and markets to scale their innovations",
     },
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       {/* Hero Section */}
-      <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 bg-gradient-hero">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
-            <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-              About <span className="bg-gradient-primary bg-clip-text text-transparent">JITSIE</span>
-            </h1>
-            <p className="text-xl lg:text-2xl text-muted-foreground">
-              Jamsetji Tata Society for Innovation and Entrepreneurship
-            </p>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* Who We Are */}
       <section className="py-16 lg:py-24">
@@ -48,22 +41,27 @@ const About = () => {
             </h2>
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
               <p>
-                JITSIE is the entrepreneurial heartbeat of IIT Madras, serving as a launchpad for
-                visionary founders who are building the future of deep-tech innovation. Founded with
-                the mission to nurture and accelerate startup ecosystems, we have grown into one of
-                India's most vibrant entrepreneurship communities.
+                JITSIE is the entrepreneurial heartbeat of IIT Madras, serving
+                as a launchpad for visionary founders who are building the
+                future of deep-tech innovation. Founded with the mission to
+                nurture and accelerate startup ecosystems, we have grown into
+                one of India's most vibrant entrepreneurship communities.
               </p>
               <p>
-                We believe that great ideas deserve great support. Through our comprehensive programs,
-                mentorship networks, and strategic partnerships, we provide aspiring entrepreneurs with
-                everything they need to transform their vision into reality. From initial ideation to
-                successful market launch, JITSIE stands with founders every step of the way.
+                We believe that great ideas deserve great support. Through our
+                comprehensive programs, mentorship networks, and strategic
+                partnerships, we provide aspiring entrepreneurs with everything
+                they need to transform their vision into reality. From initial
+                ideation to successful market launch, JITSIE stands with
+                founders every step of the way.
               </p>
               <p>
-                Our community of over 1,800 members includes students, alumni, mentors, and industry
-                experts who share a common passion: building innovative solutions that create real-world
-                impact. Together, we've incubated 45+ startups, supported 200+ emerging ventures, and
-                educated 2,200+ individuals on entrepreneurship.
+                Our community of over 1,800 members includes students, alumni,
+                mentors, and industry experts who share a common passion:
+                building innovative solutions that create real-world impact.
+                Together, we've incubated 45+ startups, supported 200+
+                emerging ventures, and educated 2,200+ individuals on
+                entrepreneurship.
               </p>
             </div>
           </div>
@@ -75,7 +73,7 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
-              Our Mission
+              Our Manifesto: Imagine. Incubate. Ignite.
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Three core pillars drive everything we do
@@ -89,12 +87,17 @@ const About = () => {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="w-16 h-16 rounded-2xl bg-gradient-primary flex items-center justify-center mx-auto mb-6">
-                  <mission.icon className="text-primary-foreground" size={32} />
+                  <mission.icon
+                    className="text-primary-foreground"
+                    size={32}
+                  />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground mb-3">
                   {mission.title}
                 </h3>
-                <p className="text-muted-foreground">{mission.description}</p>
+                <p className="text-muted-foreground">
+                  {mission.description}
+                </p>
               </div>
             ))}
           </div>
@@ -111,6 +114,7 @@ const About = () => {
             <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
               <div className="flex flex-col lg:flex-row gap-8 items-center">
                 <div className="flex-shrink-0">
+                  {/* Placeholder for a professional photograph of Prof. Ashok Jhunjhunwala */}
                   <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl bg-gradient-primary" />
                 </div>
                 <div className="space-y-4">
@@ -118,10 +122,11 @@ const About = () => {
                     Prof. Ashok Jhunjhunwala
                   </h3>
                   <p className="text-lg text-muted-foreground italic">
-                    "Innovation is not just about creating something new; it's about creating something
-                    that makes a real difference in people's lives. At JITSIE, we're building an
-                    ecosystem where ideas don't just flourish—they transform into ventures that change
-                    the world."
+                    "Innovation is not just about creating something new; it's
+                    about creating something that makes a real difference in
+                    people's lives. At JITSIE, we're building an ecosystem
+                    where ideas don't just flourish—they transform into
+                    ventures that change the world."
                   </p>
                   <p className="text-sm text-muted-foreground">
                     Professor & Founding Member, IIT Madras
@@ -138,35 +143,51 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-8">
-              Our Structure
+              Architecting Excellence: Our Framework for Impact
             </h2>
             <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
               <div className="space-y-6">
                 <div className="border-l-4 border-primary pl-6">
-                  <h3 className="text-xl font-bold text-foreground mb-2">Board Members</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    The Visionaries: Board & Mentors
+                  </h3>
                   <p className="text-muted-foreground">
-                    Guiding Faculty, Industry Associates, and Knowledge Partners who provide strategic
-                    direction and mentorship
+                    Our esteemed board, comprising distinguished faculty and
+                    industry stalwarts, provides the strategic foresight that
+                    guides our mission. They are the guardians of our vision
+                    and the mentors to our future leaders.
                   </p>
                 </div>
                 <div className="border-l-4 border-primary pl-6">
-                  <h3 className="text-xl font-bold text-foreground mb-2">Leadership</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    The Vanguard: Leadership & Executive Core
+                  </h3>
                   <p className="text-muted-foreground">
-                    Founder and President who drive the society's vision and operations
+                    The President, Founder, and the Executive Core Committee
+                    form the operational heart of JITSIE. They are the
+                    strategists and executors, driving our initiatives and
+                    ensuring the seamless functioning of the entire ecosystem.
                   </p>
                 </div>
                 <div className="border-l-4 border-primary pl-6">
-                  <h3 className="text-xl font-bold text-foreground mb-2">Executive Core Committee</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    The Vanguards: Vertical & Department Heads
+                  </h3>
                   <p className="text-muted-foreground">
-                    Central decision-making body responsible for strategic initiatives and policy
+                    Our specialized teams, from deep-tech verticals like AI and
+                    Biotech to operational departments like PR and Events, are
+                    the engines of our progress. They are the domain experts
+                    who bring our programs to life.
                   </p>
                 </div>
                 <div className="border-l-4 border-primary pl-6">
-                  <h3 className="text-xl font-bold text-foreground mb-2">Verticals & Departments</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    The Vibrancy: Our Community
+                  </h3>
                   <p className="text-muted-foreground">
-                    Specialized teams focusing on general verticals (Incubation, Funding) and domain
-                    verticals (Ed-Tech, Fin-Tech, etc.), supported by operational departments (PR,
-                    Content, Multimedia, Events)
+                    The lifeblood of JITSIE. A thriving community of students,
+                    innovators, and entrepreneurs whose collective passion and
+                    ambition fuel our ecosystem.
                   </p>
                 </div>
               </div>
