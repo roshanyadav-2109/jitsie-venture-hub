@@ -1,7 +1,3 @@
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero pt-20">
@@ -36,18 +32,24 @@ const Hero = () => {
           {/* Text content on the right */}
           <div className="text-left space-y-8 animate-fade-in-up">
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-foreground leading-tight">
-              Forging the Future of{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
-                Deep-Tech Innovation
+                JITSIE
               </span>
+              <br />
+              The Entrepreneurship Society, IIT Madras
             </h1>
-            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground">
-              JITSIE is the nexus where intellect, ambition, and opportunity
-              converge. We are the driving force behind IIT Madras's
-              entrepreneurial spirit, empowering the next generation of
-              deep-tech pioneers to build ventures that will redefine tomorrow.
+            <p className="text-lg md:text-xl text-muted-foreground">
+              The Jamsetji Tata Society for Innovation and Entrepreneurship
+              (JITSIE) is a dedicated society at IIT Madras that fosters
+              deep-tech innovation by cultivating a supportive ecosystem for
+              aspiring founders. Through guided startup cohorts, incubation
+              support, and curated investor connect sessions, JITSIE provides a
+              structured pathway for entrepreneurs to develop their ideas into
+              viable ventures. The society’s core mission is to inspire,
+              nurture, and accelerate the journey from initial concept to a
+              market-ready business, transforming bold ideas into startups
+              poised to make a significant impact.
             </p>
-            {/* CTA Buttons have been removed from here */}
           </div>
         </div>
       </div>
