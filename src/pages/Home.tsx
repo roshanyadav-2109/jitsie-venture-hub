@@ -77,29 +77,18 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
-      {/* Hero Section with JITSIE Title */}
-      <section className="py-16 lg:py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center space-y-4">
-            <h1 className="text-6xl lg:text-8xl font-bold text-gray-900 dark:text-gray-100">
-              JITSIE
-            </h1>
-            <p className="text-2xl lg:text-3xl text-gray-800 dark:text-gray-200">
-              The Entrepreneurship Society IIT Madras
-            </p>
-          </div>
-        </div>
-      </section>
-      
+
+      {/* Hero Section */}
+      <Hero />
+
       {/* Metrics Section */}
       <section className="py-16 lg:py-24 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            <CounterCard value={1800} suffix="+" label="Community Members" />
-            <CounterCard value={200} suffix="+" label="Emerging Startups" />
-            <CounterCard value={45} suffix="+" label="Startups Incubated" />
-            <CounterCard value={2200} suffix="+" label="Individuals Educated" />
+            <CounterCard value={1800} label="Community Members" suffix="+" />
+            <CounterCard value={200} label="Emerging Startups" suffix="+" />
+            <CounterCard value={45} label="Startups Incubated" suffix="+" />
+            <CounterCard value={2200} label="Individuals Educated" suffix="+" />
           </div>
         </div>
       </section>
@@ -116,7 +105,6 @@ const Home = () => {
               every stage of your entrepreneurial journey.
             </p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {activities.map((activity, index) => (
               <div
@@ -149,7 +137,7 @@ const Home = () => {
             <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
               <div className="flex flex-col lg:flex-row gap-8 items-center">
                 <div className="flex-shrink-0">
-                  <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl bg-gradient-primary"></div>
+                  <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl bg-gradient-primary" />
                 </div>
                 <div className="space-y-4">
                   <h3 className="text-2xl font-bold text-foreground">
@@ -182,10 +170,7 @@ const Home = () => {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               We are proud to partner with leading organizations that share our
               vision for a thriving deep-tech ecosystem. You can learn more about them on our{" "}
-              <Link
-                to="/partners"
-                className="text-primary underline-offset-4 hover:underline"
-              >
+              <Link to="/partners" className="text-primary underline-offset-4 hover:underline">
                 partners page
               </Link>.
             </p>
@@ -205,7 +190,6 @@ const Home = () => {
               journey.
             </p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {testimonials.map((testimonial, index) => (
               <TestimonialCard
