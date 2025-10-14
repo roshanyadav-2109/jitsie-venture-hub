@@ -12,7 +12,6 @@ const Team = () => {
   useEffect(() => {
     const fetchTeamMembers = async () => {
       setLoading(true);
-      // @ts-expect-error - Table exists in external Supabase project
       const { data, error } = await supabase
         .from("team_members")
         .select("*")
