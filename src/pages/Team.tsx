@@ -193,29 +193,8 @@ const Team = () => {
         </div>
       </section>
 
-      {/* Management */}
-      <section className="py-16 lg:py-24 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <div className="mb-12">
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
-              Management
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Driving JITSIE's vision and operations
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-             {loading ? (
-              Array.from({ length: 2 }).map((_, i) => <SmallSkeletonCard key={i} />)
-            ) : (
-              management.map((member) => <ManagementCard key={member.id} member={member} />)
-            )}
-          </div>
-        </div>
-      </section>
-
       {/* Mentors & Facilitators */}
-       <section className="py-16 lg:py-24">
+       <section className="py-16 lg:py-24 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="mb-12">
             <div className="flex items-center gap-4 mb-4">
@@ -235,6 +214,27 @@ const Team = () => {
               Array.from({ length: 4 }).map((_, i) => <SmallSkeletonCard key={i} />)
             ) : (
               mentors.map((member) => <ManagementCard key={member.id} member={member} />)
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Management */}
+      <section className="py-16 lg:py-24">
+        <div className="container mx-auto px-4">
+          <div className="mb-12">
+            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
+              Management
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Driving JITSIE's vision and operations
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+             {loading ? (
+              Array.from({ length: 2 }).map((_, i) => <SmallSkeletonCard key={i} />)
+            ) : (
+              management.map((member) => <ManagementCard key={member.id} member={member} />)
             )}
           </div>
         </div>
