@@ -171,7 +171,7 @@ const Team = () => {
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="mb-12">
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center justify-center gap-4 mb-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center">
                 <Award className="text-primary-foreground" size={24} />
               </div>
@@ -179,7 +179,7 @@ const Team = () => {
                 Advisory Board
               </h2>
             </div>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground text-center">
               Strategic advisors providing guidance and mentorship
             </p>
           </div>
@@ -197,7 +197,7 @@ const Team = () => {
        <section className="py-16 lg:py-24 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="mb-12">
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center justify-center gap-4 mb-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center">
                 <Users className="text-primary-foreground" size={24} />
               </div>
@@ -205,7 +205,7 @@ const Team = () => {
                 Mentors & Facilitators
               </h2>
             </div>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground text-center">
               Industry experts guiding our next generation of founders.
             </p>
           </div>
@@ -223,10 +223,10 @@ const Team = () => {
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="mb-12">
-            <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
+            <h2 className="text-3xl lg:text-5xl font-bold text-foreground text-center mb-4">
               Management
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground text-center">
               Driving JITSIE's vision and operations
             </p>
           </div>
