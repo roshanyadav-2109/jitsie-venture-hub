@@ -61,6 +61,7 @@ export default {
       backgroundImage: {
         "gradient-primary": "var(--gradient-primary)",
         "gradient-hero": "var(--gradient-hero)",
+        "tata-bg": "url('/jamsetji-tata-bg.png')",
       },
       boxShadow: {
         elegant: "var(--shadow-elegant)",
