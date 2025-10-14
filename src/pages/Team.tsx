@@ -183,12 +183,14 @@ const Team = () => {
               Strategic advisors providing guidance and mentorship
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 justify-center">
-            {loading ? (
-              Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)
-            ) : (
-              advisoryBoard.map((member) => <MemberCard key={member.id} member={member} />)
-            )}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {loading ? (
+                Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)
+              ) : (
+                advisoryBoard.map((member) => <MemberCard key={member.id} member={member} />)
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -209,12 +211,14 @@ const Team = () => {
               Industry experts guiding our next generation of founders.
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 justify-center">
-            {loading ? (
-              Array.from({ length: 4 }).map((_, i) => <SmallSkeletonCard key={i} />)
-            ) : (
-              mentors.map((member) => <ManagementCard key={member.id} member={member} />)
-            )}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+              {loading ? (
+                Array.from({ length: 4 }).map((_, i) => <SmallSkeletonCard key={i} />)
+              ) : (
+                mentors.map((member) => <ManagementCard key={member.id} member={member} />)
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -230,12 +234,14 @@ const Team = () => {
               Driving JITSIE's vision and operations
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 justify-center">
-             {loading ? (
-              Array.from({ length: 2 }).map((_, i) => <SmallSkeletonCard key={i} />)
-            ) : (
-              management.map((member) => <ManagementCard key={member.id} member={member} />)
-            )}
+          <div className="flex justify-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+               {loading ? (
+                Array.from({ length: 2 }).map((_, i) => <SmallSkeletonCard key={i} />)
+              ) : (
+                management.map((member) => <ManagementCard key={member.id} member={member} />)
+              )}
+            </div>
           </div>
         </div>
       </section>
