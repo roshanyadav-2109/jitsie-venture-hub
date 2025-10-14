@@ -1,83 +1,54 @@
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Award, Zap, Rocket, Target, TrendingUp, Users } from "lucide-react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 const Initiatives = () => {
-  const initiatives = [
-    {
-      category: "Startup Cohorts & Bootcamps",
-      icon: Rocket,
-      programs: [
-        {
-          name: "Wadhwani Startup Cohort",
-          description: "Intensive 12-week acceleration program with industry mentorship and funding opportunities",
-        },
-        {
-          name: "JITSIE Bengaluru BootCamp",
-          description: "Immersive bootcamp connecting IIT Madras startups with Bangalore's startup ecosystem",
-        },
-        {
-          name: "IGNITE Cohort",
-          description: "Early-stage startup cohort focusing on product development and market validation",
-        },
-      ],
-    },
-    {
-      category: "Competitions & Pitch Days",
-      icon: Award,
-      programs: [
-        {
-          name: "START-A-THON",
-          description: "Our flagship innovation competition bringing together aspiring entrepreneurs from across India",
-        },
-        {
-          name: "Pitch Fest",
-          description: "Monthly pitching events connecting founders with angel investors and VCs",
-        },
-        {
-          name: "Becoming Billionaire",
-          description: "High-stakes pitch competition with industry leaders as judges and mentors",
-        },
-      ],
-    },
-    {
-      category: "Incubation & Investor Connect",
-      icon: TrendingUp,
-      programs: [
-        {
-          name: "JITSIE-STPI Incubation Cohort",
-          description: "Partnership with STPI providing office space, legal support, and government scheme access",
-        },
-        {
-          name: "Wadhwani LiftOff",
-          description: "Bridge program connecting validated startups with growth capital and strategic partners",
-        },
-        {
-          name: "Investor Demo Days",
-          description: "Quarterly showcase events featuring portfolio startups presenting to curated investor panels",
-        },
-      ],
-    },
-    {
-      category: "Community & Education",
-      icon: Users,
-      programs: [
-        {
-          name: "Founder Talks",
-          description: "Regular sessions with successful entrepreneurs sharing their journey and insights",
-        },
-        {
-          name: "Skill Development Workshops",
-          description: "Hands-on workshops covering technical skills, business fundamentals, and soft skills",
-        },
-        {
-          name: "Networking Meetups",
-          description: "Monthly gatherings fostering connections within the entrepreneurship community",
-        },
-      ],
-    },
-  ];
+  const [initiatives, setInitiatives] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchInitiatives = async () => {
+      setLoading(true);
+      // @ts-expect-error - Table exists in external Supabase project
+      const { data, error } = await supabase
+        .from("initiatives")
+        .select("*")
+        .order("name");
+      
+      if (error) {
+        console.error("Error fetching initiatives:", error);
+      } else {
+        setInitiatives(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchInitiatives();
+  }, []);
+
+  const categoryIcons: Record<string, any> = {
+    "Startup Cohorts & Bootcamps": Rocket,
+    "Competitions & Pitch Days": Award,
+    "Incubation & Investor Connect": TrendingUp,
+    "Community & Education": Users,
+  };
+
+  const groupedInitiatives = initiatives.reduce((acc, initiative) => {
+    if (!acc[initiative.category]) {
+      acc[initiative.category] = [];
+    }
+    acc[initiative.category].push(initiative);
+    return acc;
+  }, {} as Record<string, any[]>);
+
+  const initiativeCategories = Object.keys(groupedInitiatives).map(category => ({
+    category,
+    icon: categoryIcons[category] || Target,
+    programs: groupedInitiatives[category],
+  }));
 
   return (
     <div className="min-h-screen bg-background">
@@ -100,36 +71,46 @@ const Initiatives = () => {
       {/* Initiatives Grid */}
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
-          <div className="space-y-16 lg:space-y-24">
-            {initiatives.map((category, categoryIndex) => (
-              <div key={category.category} className="animate-fade-in-up" style={{ animationDelay: `${categoryIndex * 100}ms` }}>
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0">
-                    <category.icon className="text-primary-foreground" size={28} />
-                  </div>
-                  <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
-                    {category.category}
-                  </h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {category.programs.map((program, programIndex) => (
-                    <div
-                      key={program.name}
-                      className="group p-6 lg:p-8 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1"
-                      style={{ animationDelay: `${programIndex * 50}ms` }}
-                    >
-                      <h3 className="text-xl lg:text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                        {program.name}
-                      </h3>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {program.description}
-                      </p>
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-xl text-muted-foreground">Loading initiatives...</p>
+            </div>
+          ) : initiatives.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-xl text-muted-foreground">No initiatives to display</p>
+            </div>
+          ) : (
+            <div className="space-y-16 lg:space-y-24">
+              {initiativeCategories.map((category, categoryIndex) => (
+                <div key={category.category} className="animate-fade-in-up" style={{ animationDelay: `${categoryIndex * 100}ms` }}>
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-primary flex items-center justify-center flex-shrink-0">
+                      <category.icon className="text-primary-foreground" size={28} />
                     </div>
-                  ))}
+                    <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+                      {category.category}
+                    </h2>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {category.programs.map((program, programIndex) => (
+                      <div
+                        key={program.id}
+                        className="group p-6 lg:p-8 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1"
+                        style={{ animationDelay: `${programIndex * 50}ms` }}
+                      >
+                        <h3 className="text-xl lg:text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                          {program.name}
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {program.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

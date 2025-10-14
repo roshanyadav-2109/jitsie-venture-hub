@@ -1,70 +1,63 @@
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Building2, TrendingUp, Network, Globe, Blocks } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Partners = () => {
-  const partnerCategories = [
-    {
-      category: "Foundational Partners",
-      icon: Building2,
-      description: "Strategic partners who have been instrumental in establishing JITSIE",
-      partners: [
-        "Wadhwani Foundation",
-        "IIT Madras Research Park",
-        "National Innovation Foundation",
-        "Atal Innovation Mission",
-      ],
-    },
-    {
-      category: "Incubators & Government Bodies",
-      icon: Globe,
-      description: "Public sector partners supporting our incubation and policy initiatives",
-      partners: [
-        "Software Technology Parks of India (STPI)",
-        "Ministry of Electronics and IT",
-        "Startup India",
-        "Tamil Nadu Startup & Innovation Mission",
-        "Department of Science & Technology",
-      ],
-    },
-    {
-      category: "VC & Growth Partners",
-      icon: TrendingUp,
-      description: "Investment firms providing capital and growth support to our startups",
-      partners: [
-        "Sequoia Capital India",
-        "Accel Partners",
-        "Blume Ventures",
-        "Matrix Partners India",
-        "Kalaari Capital",
-        "Indian Angel Network",
-      ],
-    },
-    {
-      category: "Ecosystem & Outreach Partners",
-      icon: Network,
-      description: "Organizations helping us build connections and community",
-      partners: [
-        "nasscom 10000 Startups",
-        "TiE Chennai",
-        "Headstart Network",
-        "Product Nation (iSPIRT)",
-        "IIMB NSRCEL",
-      ],
-    },
-    {
-      category: "Web3 & Emerging Tech Partners",
-      icon: Blocks,
-      description: "Partners at the forefront of blockchain and emerging technologies",
-      partners: [
-        "Polygon",
-        "Ethereum India",
-        "Web3 Foundation",
-        "Chaincode Labs",
-        "ConsenSys Mesh",
-      ],
-    },
-  ];
+  const [partners, setPartners] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      setLoading(true);
+      // @ts-expect-error - Table exists in external Supabase project
+      const { data, error } = await supabase
+        .from("partners")
+        .select("*")
+        .order("name");
+      
+      if (error) {
+        console.error("Error fetching partners:", error);
+      } else {
+        setPartners(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchPartners();
+  }, []);
+
+  const categoryIcons: Record<string, any> = {
+    "Foundational Partners": Building2,
+    "Incubators & Government Bodies": Globe,
+    "VC & Growth Partners": TrendingUp,
+    "Ecosystem & Outreach Partners": Network,
+    "Web3 & Emerging Tech Partners": Blocks,
+  };
+
+  const categoryDescriptions: Record<string, string> = {
+    "Foundational Partners": "Strategic partners who have been instrumental in establishing JITSIE",
+    "Incubators & Government Bodies": "Public sector partners supporting our incubation and policy initiatives",
+    "VC & Growth Partners": "Investment firms providing capital and growth support to our startups",
+    "Ecosystem & Outreach Partners": "Organizations helping us build connections and community",
+    "Web3 & Emerging Tech Partners": "Partners at the forefront of blockchain and emerging technologies",
+  };
+
+  const groupedPartners = partners.reduce((acc, partner) => {
+    if (!acc[partner.category]) {
+      acc[partner.category] = [];
+    }
+    acc[partner.category].push(partner);
+    return acc;
+  }, {} as Record<string, any[]>);
+
+  const partnerCategories = Object.keys(groupedPartners).map(category => ({
+    category,
+    icon: categoryIcons[category] || Building2,
+    description: categoryDescriptions[category] || "",
+    partners: groupedPartners[category],
+  }));
 
   return (
     <div className="min-h-screen bg-background">
@@ -87,8 +80,17 @@ const Partners = () => {
       {/* Partners Grid */}
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
-          <div className="space-y-16 lg:space-y-24">
-            {partnerCategories.map((category, categoryIndex) => (
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-xl text-muted-foreground">Loading partners...</p>
+            </div>
+          ) : partners.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-xl text-muted-foreground">No partners to display</p>
+            </div>
+          ) : (
+            <div className="space-y-16 lg:space-y-24">
+              {partnerCategories.map((category, categoryIndex) => (
               <div
                 key={category.category}
                 className="animate-fade-in-up"
@@ -112,24 +114,25 @@ const Partners = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {category.partners.map((partner, partnerIndex) => (
                     <div
-                      key={partner}
+                      key={partner.id}
                       className="group p-6 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 text-center"
                       style={{ animationDelay: `${partnerIndex * 50}ms` }}
                     >
                       <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-secondary to-accent/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                         <span className="text-2xl font-bold text-primary">
-                          {partner.charAt(0)}
+                          {partner.name.charAt(0)}
                         </span>
                       </div>
                       <h3 className="text-base lg:text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {partner}
+                        {partner.name}
                       </h3>
                     </div>
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

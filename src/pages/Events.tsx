@@ -1,62 +1,35 @@
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Calendar, MapPin, Users } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Events = () => {
-  const upcomingEvents = [
-    {
-      title: "START-A-THON 2025",
-      date: "March 15-17, 2025",
-      location: "IIT Madras Research Park",
-      description: "Our flagship 48-hour innovation marathon bringing together 500+ entrepreneurs",
-      speakers: ["Prof. Ashok Jhunjhunwala", "Vijay Shekhar Sharma (Paytm)", "Ritesh Agarwal (OYO)"],
-    },
-    {
-      title: "Pitch Fest Q1",
-      date: "January 28, 2025",
-      location: "JITSIE Incubation Center",
-      description: "Monthly pitching event connecting early-stage startups with angel investors",
-      speakers: ["Panel of 10+ Angel Investors", "VC Representatives"],
-    },
-    {
-      title: "Founder Talk: Building in India",
-      date: "February 5, 2025",
-      location: "Virtual Event",
-      description: "Conversation with successful founders about scaling startups in the Indian ecosystem",
-      speakers: ["Bhavish Aggarwal (Ola)", "Falguni Nayar (Nykaa)"],
-    },
-  ];
+  const [events, setEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const pastEvents = [
-    {
-      title: "START-A-THON 2024",
-      date: "March 2024",
-      location: "IIT Madras",
-      description: "Record-breaking edition with 600+ participants and 50+ teams",
-      highlights: ["₹5 lakh prize pool", "15+ industry mentors", "10 startups incubated"],
-    },
-    {
-      title: "Wadhwani Cohort Demo Day",
-      date: "December 2024",
-      location: "IIT Madras Research Park",
-      description: "Showcase of 12 startups from the Wadhwani acceleration program",
-      highlights: ["₹8Cr funding raised", "20+ investor meetings", "3 acquisitions"],
-    },
-    {
-      title: "Bengaluru BootCamp",
-      date: "November 2024",
-      location: "Koramangala, Bengaluru",
-      description: "Week-long immersion in Bangalore's startup ecosystem",
-      highlights: ["25 startup visits", "50+ networking connections", "15 mentor sessions"],
-    },
-    {
-      title: "Investor Connect Summit",
-      date: "October 2024",
-      location: "Virtual + IIT Madras",
-      description: "Hybrid event connecting portfolio startups with national and international VCs",
-      highlights: ["30+ VCs participated", "₹12Cr commitments", "50+ pitch sessions"],
-    },
-  ];
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setLoading(true);
+      // @ts-expect-error - Table exists in external Supabase project
+      const { data, error } = await supabase
+        .from("events")
+        .select("*")
+        .order("date", { ascending: true });
+      
+      if (error) {
+        console.error("Error fetching events:", error);
+      } else {
+        setEvents(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchEvents();
+  }, []);
+
+  const upcomingEvents = events.filter(e => e.is_upcoming);
+  const pastEvents = events.filter(e => !e.is_upcoming);
 
   return (
     <div className="min-h-screen bg-background">
@@ -87,8 +60,17 @@ const Events = () => {
               Mark your calendar for these exciting opportunities
             </p>
           </div>
-          <div className="space-y-6 lg:space-y-8 max-w-5xl">
-            {upcomingEvents.map((event, index) => (
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-xl text-muted-foreground">Loading events...</p>
+            </div>
+          ) : upcomingEvents.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-xl text-muted-foreground">No upcoming events at the moment</p>
+            </div>
+          ) : (
+            <div className="space-y-6 lg:space-y-8 max-w-5xl">
+              {upcomingEvents.map((event, index) => (
               <div
                 key={event.title}
                 className="p-6 lg:p-8 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
@@ -117,22 +99,25 @@ const Events = () => {
                       </div>
                     </div>
                     <p className="text-lg text-muted-foreground">{event.description}</p>
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Users size={18} className="text-primary" />
-                        <span className="font-semibold text-foreground">Speakers:</span>
+                    {event.speakers && event.speakers.length > 0 && (
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Users size={18} className="text-primary" />
+                          <span className="font-semibold text-foreground">Speakers:</span>
+                        </div>
+                        <ul className="list-disc list-inside text-muted-foreground space-y-1">
+                          {event.speakers.map((speaker: string) => (
+                            <li key={speaker}>{speaker}</li>
+                          ))}
+                        </ul>
                       </div>
-                      <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                        {event.speakers.map((speaker) => (
-                          <li key={speaker}>{speaker}</li>
-                        ))}
-                      </ul>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>
             ))}
           </div>
+          )}
         </div>
       </section>
 
@@ -147,8 +132,17 @@ const Events = () => {
               A look back at our successful programs and their impact
             </p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            {pastEvents.map((event, index) => (
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-xl text-muted-foreground">Loading past events...</p>
+            </div>
+          ) : pastEvents.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-xl text-muted-foreground">No past events to display</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+              {pastEvents.map((event, index) => (
               <div
                 key={event.title}
                 className="p-6 lg:p-8 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1"
@@ -168,20 +162,23 @@ const Events = () => {
                   </div>
                 </div>
                 <p className="text-muted-foreground mb-4">{event.description}</p>
-                <div>
-                  <div className="font-semibold text-foreground mb-2">Key Highlights:</div>
-                  <ul className="space-y-1">
-                    {event.highlights.map((highlight) => (
-                      <li key={highlight} className="text-sm text-muted-foreground flex items-start gap-2">
-                        <span className="text-primary mt-1">•</span>
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {event.highlights && event.highlights.length > 0 && (
+                  <div>
+                    <div className="font-semibold text-foreground mb-2">Key Highlights:</div>
+                    <ul className="space-y-1">
+                      {event.highlights.map((highlight: string) => (
+                        <li key={highlight} className="text-sm text-muted-foreground flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

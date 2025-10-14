@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Users, Briefcase, Heart, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Join = () => {
   const [formData, setFormData] = useState({
@@ -18,18 +19,42 @@ const Join = () => {
     role: "",
     motivation: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Application submitted successfully! We'll get back to you soon.");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      membershipType: "general",
-      role: "",
-      motivation: "",
-    });
+    setIsSubmitting(true);
+
+    try {
+      // @ts-ignore - Table exists in external Supabase project
+      const { error } = await supabase.from("members").insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          membership_type: formData.membershipType,
+          preferred_role: formData.role || null,
+          motivation: formData.motivation,
+        },
+      ]);
+
+      if (error) throw error;
+
+      toast.success("Application submitted successfully! We'll get back to you soon.");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        membershipType: "general",
+        role: "",
+        motivation: "",
+      });
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      toast.error("Failed to submit application. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const benefits = [
@@ -228,8 +253,8 @@ const Join = () => {
                 />
               </div>
 
-              <Button type="submit" size="lg" className="w-full shadow-glow">
-                Submit Application
+              <Button type="submit" size="lg" className="w-full shadow-glow" disabled={isSubmitting}>
+                {isSubmitting ? "Submitting..." : "Submit Application"}
               </Button>
             </form>
           </div>

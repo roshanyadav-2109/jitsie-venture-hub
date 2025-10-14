@@ -1,78 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { ExternalLink } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Startups = () => {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [startups, setStartups] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const filters = ["All", "EdTech", "FinTech", "SaaS", "Sustainability", "HealthTech", "SpaceTech"];
 
-  const startups = [
-    {
-      name: "EduLearn AI",
-      sector: "EdTech",
-      description: "AI-powered personalized learning platform transforming education delivery",
-      founders: "Rahul Sharma, Priya Patel",
-      website: "https://edulearn.example.com",
-    },
-    {
-      name: "FinFlow",
-      sector: "FinTech",
-      description: "Digital banking solution for SMEs with embedded financial services",
-      founders: "Amit Kumar, Sneha Reddy",
-      website: "https://finflow.example.com",
-    },
-    {
-      name: "CloudStack Pro",
-      sector: "SaaS",
-      description: "Enterprise cloud infrastructure management and optimization platform",
-      founders: "Vikram Singh, Ananya Iyer",
-      website: "https://cloudstack.example.com",
-    },
-    {
-      name: "GreenTech Solutions",
-      sector: "Sustainability",
-      description: "IoT-based waste management and recycling optimization system",
-      founders: "Rohan Mehta, Kavya Nair",
-      website: "https://greentech.example.com",
-    },
-    {
-      name: "HealthBridge",
-      sector: "HealthTech",
-      description: "Telemedicine platform connecting rural patients with specialist doctors",
-      founders: "Dr. Aisha Khan, Rajesh Gupta",
-      website: "https://healthbridge.example.com",
-    },
-    {
-      name: "OrbitLabs",
-      sector: "SpaceTech",
-      description: "Satellite data analytics for agriculture and climate monitoring",
-      founders: "Karthik Menon, Divya Krishnan",
-      website: "https://orbitlabs.example.com",
-    },
-    {
-      name: "SmartLearn",
-      sector: "EdTech",
-      description: "Adaptive learning technology for K-12 education",
-      founders: "Suresh Babu, Meera Shankar",
-      website: "https://smartlearn.example.com",
-    },
-    {
-      name: "PaySecure",
-      sector: "FinTech",
-      description: "Blockchain-based secure payment gateway for e-commerce",
-      founders: "Arjun Rao, Lakshmi Devi",
-      website: "https://paysecure.example.com",
-    },
-    {
-      name: "DataViz Pro",
-      sector: "SaaS",
-      description: "Business intelligence and data visualization platform",
-      founders: "Nikhil Desai, Pooja Malhotra",
-      website: "https://dataviz.example.com",
-    },
-  ];
+  useEffect(() => {
+    const fetchStartups = async () => {
+      setLoading(true);
+      // @ts-expect-error - Table exists in external Supabase project
+      const { data, error } = await supabase
+        .from("startups")
+        .select("*")
+        .order("name");
+      
+      if (error) {
+        console.error("Error fetching startups:", error);
+      } else {
+        setStartups(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchStartups();
+  }, []);
 
   const filteredStartups = activeFilter === "All" 
     ? startups 
@@ -120,8 +77,13 @@ const Startups = () => {
       {/* Startups Grid */}
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filteredStartups.map((startup, index) => (
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-xl text-muted-foreground">Loading startups...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              {filteredStartups.map((startup, index) => (
               <div
                 key={startup.name}
                 className="group p-6 lg:p-8 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
@@ -156,10 +118,11 @@ const Startups = () => {
                   <ExternalLink size={16} />
                 </a>
               </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
-          {filteredStartups.length === 0 && (
+          {!loading && filteredStartups.length === 0 && (
             <div className="text-center py-16">
               <p className="text-xl text-muted-foreground">
                 No startups found in this category
