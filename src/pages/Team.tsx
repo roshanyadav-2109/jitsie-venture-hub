@@ -1,75 +1,266 @@
-const Hero = () => {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-28 pb-16 lg:pt-20 lg:pb-20">
-      <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Text content on the left */}
-          <div className="text-left space-y-6 animate-fade-in-up">
-            <div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold uppercase bg-gradient-primary bg-clip-text text-transparent">
-                JITSIE
-              </h1>
-              <p className="text-base md:text-lg font-semibold uppercase tracking-wider text-foreground mt-2">
-                The Entrepreneurship Society, IIT Madras
-              </p>
-            </div>
-            <p className="text-base text-muted-foreground leading-relaxed">
-              The Jamsetji Tata Society for Innovation and Entrepreneurship
-              (JITSIE) is a dedicated society at IIT Madras that fosters
-              deep-tech innovation by cultivating a supportive ecosystem for
-              aspiring founders. Through guided startup cohorts, incubation
-              support, and curated investor connect sessions, JITSIE provides a
-              structured pathway for entrepreneurs to develop their ideas into
-              viable ventures. The society’s core mission is to inspire,
-              nurture, and accelerate the journey from initial concept to a
-              market-ready business, transforming bold ideas into startups
-              poised to make a significant impact.
-            </p>
-          </div>
+import { useState, useEffect } from "react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import { Users, Award, Target, Zap } from "lucide-react";
+import Hero from "@/components/Hero";
+import { supabase } from "@/integrations/supabase/client";
 
-          {/* Image Grid on the right */}
-          <div className="grid grid-cols-6 grid-rows-2 gap-4 animate-fade-in-up h-[400px]">
-            <div className="col-span-3 row-span-1">
-              <img
-                src="https://placehold.co/600x400/000000/FFFFFF?text=JITSIE+Event"
-                alt="Jitsie Event 1"
-                className="w-full h-full object-cover rounded-2xl shadow-lg"
-              />
+const Team = () => {
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTeamMembers = async () => {
+      setLoading(true);
+      // @ts-expect-error - Table exists in external Supabase project
+      const { data, error } = await supabase
+        .from("team_members")
+        .select("*")
+        .order("name");
+      
+      if (error) {
+        console.error("Error fetching team members:", error);
+      } else {
+        setTeamMembers(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchTeamMembers();
+  }, []);
+
+  const boardMembers = teamMembers.filter(m => m.category === "Board Members");
+  const leadership = teamMembers.filter(m => m.category === "Leadership");
+  const executiveCore = teamMembers.filter(m => m.category === "Executive Core Committee");
+  
+  const generalVerticals = teamMembers.filter(m => m.category === "General Verticals");
+  const domainVerticals = teamMembers.filter(m => m.category === "Domain Verticals");
+  const operationalDepartments = teamMembers.filter(m => m.category === "Operational Departments");
+
+  const verticalHeads = [
+    {
+      category: "General Verticals",
+      icon: Target,
+      members: generalVerticals,
+    },
+    {
+      category: "Domain Verticals",
+      icon: Zap,
+      members: domainVerticals,
+    },
+    {
+      category: "Operational Departments",
+      icon: Users,
+      members: operationalDepartments,
+    },
+  ].filter(v => v.members.length > 0);
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Navigation />
+
+      {/* Hero Section */}
+      <Hero />
+
+      {/* Board Members */}
+      {loading ? (
+        <section className="py-16 lg:py-24">
+          <div className="container mx-auto px-4 text-center">
+            <p className="text-xl text-muted-foreground">Loading team members...</p>
+          </div>
+        </section>
+      ) : (
+        <>
+          {boardMembers.length > 0 && (
+            <section className="py-16 lg:py-24">
+              <div className="container mx-auto px-4">
+                <div className="mb-12">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center">
+                      <Award className="text-primary-foreground" size={24} />
+                    </div>
+                    <h2 className="text-3xl lg:text-5xl font-bold text-foreground">
+                      Board Members
+                    </h2>
+                  </div>
+                  <p className="text-lg text-muted-foreground">
+                    Strategic advisors providing guidance and mentorship
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                  {boardMembers.map((member, index) => (
+              <div
+                key={member.name}
+                className="p-6 lg:p-8 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="w-24 h-24 rounded-2xl bg-gradient-primary mb-4 mx-auto" />
+                    <h3 className="text-xl font-bold text-foreground text-center mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-sm text-primary text-center mb-3 font-medium">
+                      {member.role}
+                    </p>
+                    {member.bio && (
+                      <p className="text-sm text-muted-foreground text-center leading-relaxed">
+                        {member.bio}
+                      </p>
+                    )}
+                  </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Leadership */}
+          {leadership.length > 0 && (
+            <section className="py-16 lg:py-24 bg-secondary/30">
+              <div className="container mx-auto px-4">
+                <div className="mb-12">
+                  <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
+                    Leadership
+                  </h2>
+                  <p className="text-lg text-muted-foreground">
+                    Driving JITSIE's vision and operations
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl">
+                  {leadership.map((member, index) => (
+              <div
+                key={member.name}
+                className="p-6 lg:p-8 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="w-32 h-32 rounded-2xl bg-gradient-primary mb-4 mx-auto" />
+                    <h3 className="text-2xl font-bold text-foreground text-center mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-base text-primary text-center mb-3 font-medium">
+                      {member.role}
+                    </p>
+                    {member.bio && (
+                      <p className="text-muted-foreground text-center leading-relaxed">
+                        {member.bio}
+                      </p>
+                    )}
+                  </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Executive Core Committee */}
+          {executiveCore.length > 0 && (
+            <section className="py-16 lg:py-24">
+              <div className="container mx-auto px-4">
+                <div className="mb-12">
+                  <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
+                    Executive Core Committee
+                  </h2>
+                  <p className="text-lg text-muted-foreground">
+                    Central decision-making body responsible for strategic
+                    initiatives
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+                  {executiveCore.map((member, index) => (
+              <div
+                key={member.name}
+                className="p-6 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 text-center"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                    <div className="w-20 h-20 rounded-xl bg-gradient-primary mb-3 mx-auto" />
+                    <h3 className="text-lg font-bold text-foreground mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {member.role}
+                    </p>
+                  </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Verticals & Departments */}
+          {verticalHeads.length > 0 && (
+            <section className="py-16 lg:py-24 bg-secondary/30">
+              <div className="container mx-auto px-4">
+                <div className="mb-12">
+                  <h2 className="text-3xl lg:text-5xl font-bold text-foreground mb-4">
+                    Verticals & Departments
+                  </h2>
+                  <p className="text-lg text-muted-foreground">
+                    Specialized teams driving focused initiatives
+                  </p>
+                </div>
+                <div className="space-y-12 lg:space-y-16">
+                  {verticalHeads.map((vertical, verticalIndex) => (
+              <div
+                key={vertical.category}
+                style={{ animationDelay: `${verticalIndex * 100}ms` }}
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center">
+                    <vertical.icon
+                      className="text-primary-foreground"
+                      size={24}
+                    />
+                  </div>
+                  <h3 className="text-2xl lg:text-3xl font-bold text-foreground">
+                    {vertical.category}
+                  </h3>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {vertical.members.map((member, memberIndex) => (
+                      <div
+                        key={member.name}
+                        className="p-6 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 text-center"
+                        style={{ animationDelay: `${memberIndex * 50}ms` }}
+                      >
+                        <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-secondary to-accent/10 mb-3 mx-auto" />
+                        <h4 className="text-base font-bold text-foreground mb-1">
+                          {member.name}
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          {member.role}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="col-span-3 row-span-1">
-              <img
-                src="https://placehold.co/600x400/111111/FFFFFF?text=JITSIE+Team"
-                alt="Jitsie Team"
-                className="w-full h-full object-cover rounded-2xl shadow-lg"
-              />
-            </div>
-            <div className="col-span-2 row-span-1">
-              <img
-                src="https://placehold.co/400x400/222222/FFFFFF?text=Startup"
-                alt="Jitsie Startup"
-                className="w-full h-full object-cover rounded-2xl shadow-lg"
-              />
-            </div>
-            <div className="col-span-2 row-span-1">
-              <img
-                src="https://placehold.co/400x400/333333/FFFFFF?text=Workshop"
-                alt="Jitsie Workshop"
-                className="w-full h-full object-cover rounded-2xl shadow-lg"
-              />
-            </div>
-            <div className="col-span-2 row-span-1">
-              <img
-                src="https://placehold.co/400x400/444444/FFFFFF?text=Pitch+Day"
-                alt="Jitsie Pitch Day"
-                className="w-full h-full object-cover rounded-2xl shadow-lg"
-              />
-            </div>
+          </div>
+        </section>
+      )}
+    </>
+  )}
+
+      {/* CTA Section */}
+      <section className="py-16 lg:py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <h2 className="text-3xl lg:text-5xl font-bold text-foreground">
+              Want to Join Our Team?
+            </h2>
+            <p className="text-lg lg:text-xl text-muted-foreground">
+              We're always looking for passionate individuals to join our
+              mission
+            </p>
+            <button className="px-8 py-4 rounded-xl bg-gradient-primary text-primary-foreground font-semibold text-lg shadow-glow hover:shadow-elegant transition-all hover:scale-105">
+              Apply Now
+            </button>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <Footer />
+    </div>
   );
 };
 
-export default Hero;
+export default Team;
