@@ -26,7 +26,6 @@ const Join = () => {
     setIsSubmitting(true);
 
     try {
-      // @ts-ignore - Table exists in external Supabase project
       const { error } = await supabase.from("members").insert([
         {
           name: formData.name,
