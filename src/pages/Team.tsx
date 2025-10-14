@@ -68,7 +68,9 @@ const Team = () => {
     <div
       className="p-6 lg:p-8 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 flex flex-col"
     >
-      <div className="w-24 h-24 rounded-2xl bg-gradient-primary mb-4 mx-auto flex-shrink-0" />
+      <div className="w-24 h-24 rounded-full bg-gradient-primary mb-4 mx-auto flex-shrink-0 overflow-hidden">
+        <img src={member.avatar_url || "/placeholder.svg"} alt={member.name} className="w-full h-full object-cover" />
+      </div>
       <h3 className="text-xl font-bold text-foreground text-center mb-1">
         {member.name}
       </h3>
@@ -82,10 +84,10 @@ const Team = () => {
       )}
       {member.linkedin_profile_url && (
         <div className="mt-4 text-center">
-            <a 
-                href={member.linkedin_profile_url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+            <a
+                href={member.linkedin_profile_url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block text-muted-foreground hover:text-primary transition-colors"
                 aria-label={`${member.name}'s LinkedIn Profile`}
             >
@@ -100,7 +102,9 @@ const Team = () => {
      <div
       className="p-6 rounded-2xl bg-card border border-border hover:shadow-elegant transition-all duration-300 hover:-translate-y-1 text-center"
     >
-      <div className="w-20 h-20 rounded-xl bg-gradient-primary mb-3 mx-auto" />
+      <div className="w-20 h-20 rounded-full bg-gradient-primary mb-3 mx-auto overflow-hidden">
+        <img src={member.avatar_url || "/placeholder.svg"} alt={member.name} className="w-full h-full object-cover" />
+      </div>
       <h3 className="text-lg font-bold text-foreground mb-1">
         {member.name}
       </h3>
@@ -109,10 +113,10 @@ const Team = () => {
       </p>
        {member.linkedin_profile_url && (
         <div className="mt-3 text-center">
-            <a 
-                href={member.linkedin_profile_url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+            <a
+                href={member.linkedin_profile_url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block text-muted-foreground hover:text-primary transition-colors"
                 aria-label={`${member.name}'s LinkedIn Profile`}
             >
@@ -126,7 +130,7 @@ const Team = () => {
 
   const SkeletonCard = () => (
     <div className="p-6 lg:p-8 rounded-2xl bg-card border border-border">
-      <Skeleton className="w-24 h-24 rounded-2xl mb-4 mx-auto" />
+      <Skeleton className="w-24 h-24 rounded-full mb-4 mx-auto" />
       <Skeleton className="h-6 w-3/4 mx-auto mb-2" />
       <Skeleton className="h-4 w-1/2 mx-auto mb-3" />
       <Skeleton className="h-4 w-full mx-auto" />
@@ -134,10 +138,10 @@ const Team = () => {
       <Skeleton className="h-4 w-5/6 mx-auto mt-1" />
     </div>
   );
-  
+
   const SmallSkeletonCard = () => (
      <div className="p-6 rounded-2xl bg-card border border-border">
-      <Skeleton className="w-20 h-20 rounded-xl mb-3 mx-auto" />
+      <Skeleton className="w-20 h-20 rounded-full mb-3 mx-auto" />
       <Skeleton className="h-5 w-3/4 mx-auto mb-2" />
       <Skeleton className="h-4 w-1/2 mx-auto" />
     </div>
@@ -146,7 +150,7 @@ const Team = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 bg-gradient-hero">
         <div className="container mx-auto px-4">
@@ -160,7 +164,7 @@ const Team = () => {
           </div>
         </div>
       </section>
-      
+
       {error && <div className="container mx-auto px-4 py-16 text-center text-destructive">{error}</div>}
 
       {/* Advisory Board */}
@@ -209,7 +213,7 @@ const Team = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Mentors & Facilitators */}
        <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
