@@ -5,16 +5,16 @@ const Hero = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text content on the left */}
-          <div className="text-left space-y-6 animate-fade-in-up">
-            <div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold uppercase bg-gradient-primary bg-clip-text text-transparent">
+          <div className="text-left animate-fade-in-up">
+            <div className="inline-block">
+              <h1 className="font-display text-7xl md:text-8xl lg:text-9xl font-extrabold bg-gradient-primary bg-clip-text text-transparent tracking-tight">
                 JITSIE
               </h1>
-              <p className="text-base md:text-lg font-semibold uppercase tracking-wider text-foreground mt-2">
+              <p className="text-base md:text-lg font-semibold uppercase tracking-wider text-foreground">
                 The Entrepreneurship Society, IIT Madras
               </p>
             </div>
-            <p className="text-base text-muted-foreground leading-relaxed">
+            <p className="text-base text-muted-foreground leading-relaxed mt-6">
               The Jamsetji Tata Society for Innovation and Entrepreneurship
               (JITSIE) is a dedicated society at IIT Madras that fosters
               deep-tech innovation by cultivating a supportive ecosystem for
