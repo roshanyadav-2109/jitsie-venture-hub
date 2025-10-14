@@ -10,7 +10,7 @@ const Hero = () => {
               <h1 className="font-display text-7xl md:text-8xl lg:text-9xl font-extrabold bg-gradient-primary bg-clip-text text-transparent tracking-tight text-center">
                 JITSIE
               </h1>
-              <p className="text-base md:text-lg font-semibold uppercase tracking-wider text-foreground text-center">
+              <p className="font-display text-base md:text-lg font-semibold uppercase tracking-wider text-foreground text-center">
                 The Entrepreneurship Society, IIT Madras
               </p>
             </div>
