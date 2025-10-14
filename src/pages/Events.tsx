@@ -11,7 +11,6 @@ const Events = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       setLoading(true);
-      // @ts-expect-error - Table exists in external Supabase project
       const { data, error } = await supabase
         .from("events")
         .select("*")
