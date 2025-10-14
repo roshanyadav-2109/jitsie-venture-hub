@@ -20,7 +20,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
-        display: ["Poppins", "sans-serif"], // Added for premium headings
+        display: ["Montserrat", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -73,6 +73,9 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      letterSpacing: {
+        wider: '0.15em',
       },
       keyframes: {
         "accordion-down": {
