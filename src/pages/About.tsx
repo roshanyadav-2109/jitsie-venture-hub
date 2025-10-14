@@ -1,7 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Target, Lightbulb, Rocket } from "lucide-react";
-import Hero from "@/components/Hero";
 
 const About = () => {
   const missions = [
@@ -30,7 +29,18 @@ const About = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <Hero />
+      <section className="pt-32 pb-16 lg:pt-40 lg:pb-24 bg-gradient-hero">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center animate-fade-in-up">
+            <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
+              About <span className="bg-gradient-primary bg-clip-text text-transparent">JITSIE</span>
+            </h1>
+            <p className="text-xl lg:text-2xl text-muted-foreground">
+              The driving force behind the entrepreneurial pulse at IIT Madras.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Who We Are */}
       <section className="py-16 lg:py-24">
@@ -114,8 +124,11 @@ const About = () => {
             <div className="bg-card border border-border rounded-2xl p-8 lg:p-12">
               <div className="flex flex-col lg:flex-row gap-8 items-center">
                 <div className="flex-shrink-0">
-                  {/* Placeholder for a professional photograph of Prof. Ashok Jhunjhunwala */}
-                  <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl bg-gradient-primary" />
+                  <img
+                    src="https://placehold.co/160x160/7c3aed/ffffff?text=Prof.+Ashok"
+                    alt="Prof. Ashok Jhunjhunwala"
+                    className="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl object-cover"
+                  />
                 </div>
                 <div className="space-y-4">
                   <h3 className="text-2xl font-bold text-foreground">
