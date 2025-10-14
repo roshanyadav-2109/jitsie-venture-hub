@@ -7,7 +7,7 @@ const Hero = () => {
           {/* Text content on the left */}
           <div className="text-left animate-fade-in-up">
             <div className="inline-block">
-              <h1 className="font-display text-7xl md:text-8xl lg:text-9xl font-extrabold bg-gradient-primary bg-clip-text text-transparent tracking-tight text-center">
+              <h1 className="font-sans text-7xl md:text-8xl lg:text-9xl font-extrabold bg-gradient-primary bg-clip-text text-transparent tracking-tighter text-center">
                 JITSIE
               </h1>
               <p className="font-display text-base md:text-lg font-semibold uppercase tracking-wider text-foreground text-center">
