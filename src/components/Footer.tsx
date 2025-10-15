@@ -1,140 +1,154 @@
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Github, Dribbble } from "lucide-react";
+import { Mail, Linkedin, Twitter, Instagram, Youtube } from "lucide-react";
 
 const Footer = () => {
+  const footerLinks = {
+    explore: [
+      { name: "About Us", path: "/about" },
+      { name: "Initiatives", path: "/initiatives" },
+      { name: "Events", path: "/events" },
+      { name: "Team", path: "/team" },
+    ],
+    community: [
+      { name: "Our Startups", path: "/startups" },
+      { name: "Partners", path: "/partners" },
+      { name: "Join Us", path: "/join" },
+    ],
+  };
+
   return (
-    <footer className="bg-white dark:bg-gray-900">
-      <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-        <div className="md:flex md:justify-between">
-          <div className="mb-6 md:mb-0">
-            <Link to="/" className="flex items-center">
-              <img
-                src="https://flowbite.com/docs/images/logo.svg"
-                className="h-8 me-3"
-                alt="Jitsie Logo"
-              />
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                JITSIE
-              </span>
-            </Link>
+    <footer className="bg-card border-t border-border">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* About Section */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center text-primary-foreground font-bold text-lg">
+                J
+              </div>
+              <span className="font-bold text-xl text-foreground">JITSIE</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              The driving force behind the entrepreneurial pulse at IIT Madras,
+              empowering the next generation of founders.
+            </p>
+            <div className="flex gap-3">
+              <a
+                href="mailto:contact@jitsie.com"
+                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
+                aria-label="Email"
+              >
+                <Mail size={18} />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={18} />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
+                aria-label="Twitter"
+              >
+                <Twitter size={18} />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram size={18} />
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
+                aria-label="Youtube"
+              >
+                <Youtube size={18} />
+              </a>
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-            <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Quick Links
-              </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
-                <li className="mb-4">
-                  <Link to="/about" className="hover:underline">
-                    About Us
+
+          {/* Explore Links */}
+          <div>
+            <h3 className="font-semibold text-foreground mb-4">Explore</h3>
+            <ul className="space-y-2">
+              {footerLinks.explore.map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link.name}
                   </Link>
                 </li>
-                <li className="mb-4">
-                  <Link to="/initiatives" className="hover:underline">
-                    Initiatives
+              ))}
+            </ul>
+          </div>
+
+          {/* Community Links */}
+          <div>
+            <h3 className="font-semibold text-foreground mb-4">Community</h3>
+            <ul className="space-y-2">
+              {footerLinks.community.map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link.name}
                   </Link>
                 </li>
-                <li className="mb-4">
-                  <Link to="/startups" className="hover:underline">
-                    Startups
-                  </Link>
-                </li>
-                <li className="mb-4">
-                  <Link to="/events" className="hover:underline">
-                    Events
-                  </Link>
-                </li>
-                <li className="mb-4">
-                  <Link to="/partners" className="hover:underline">
-                    Partners
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/team" className="hover:underline">
-                    Team
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Be a Part of Jitsie
-              </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
-                <li className="mb-4">
-                  <Link to="/join" className="hover:underline">
-                    Join The Team
-                  </Link>
-                </li>
-                <li className="mb-4">
-                  <Link to="/team" className="hover:underline">
-                    Management
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/team" className="hover:underline">
-                    Board Members
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Legal
-              </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
-                <li className="mb-4">
-                  <a href="#" className="hover:underline">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:underline">
-                    Terms &amp; Conditions
-                  </a>
-                </li>
-              </ul>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="font-semibold text-foreground mb-4">Contact</h3>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p>IIT Madras Research Park</p>
+              <p>Chennai, Tamil Nadu</p>
+              <p>India - 600113</p>
+              <a
+                href="mailto:contact@jitsie.com"
+                className="hover:text-primary transition-colors inline-block mt-2"
+              >
+                contact@jitsie.com
+              </a>
             </div>
           </div>
         </div>
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-            © 2023{" "}
-            <a href="https://jitsie.iitm.ac.in/" className="hover:underline">
-              JITSIE™
-            </a>
-            . All Rights Reserved.
-          </span>
-          <div className="flex mt-4 sm:justify-center sm:mt-0">
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
-            >
-              <Facebook className="w-4 h-4" />
-              <span className="sr-only">Facebook page</span>
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
-            >
-              <Twitter className="w-4 h-4" />
-              <span className="sr-only">Twitter page</span>
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
-            >
-              <Github className="w-4 h-4" />
-              <span className="sr-only">GitHub account</span>
-            </a>
-            <a
-              href="#"
-              className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
-            >
-              <Dribbble className="w-4 h-4" />
-              <span className="sr-only">Dribbble account</span>
-            </a>
+
+        <div className="mt-12 pt-8 border-t border-border">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-muted-foreground">
+              © 2025 JITSIE, IIT Madras. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              <a
+                href="#"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="#"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                Terms of Service
+              </a>
+            </div>
           </div>
         </div>
       </div>
