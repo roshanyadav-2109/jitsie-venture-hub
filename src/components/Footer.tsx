@@ -50,15 +50,6 @@ const Footer = () => {
                 <Linkedin size={18} />
               </a>
               <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter size={18} />
-              </a>
-              <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
