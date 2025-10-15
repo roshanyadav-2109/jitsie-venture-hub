@@ -21,47 +21,60 @@ const Footer = () => {
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Resources
+                Quick Links
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a
-                    href="https://jitsie.iitm.ac.in"
-                    className="hover:underline"
-                  >
-                    Jitsie
-                  </a>
+                  <Link to="/about" className="hover:underline">
+                    About Us
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link to="/initiatives" className="hover:underline">
+                    Initiatives
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link to="/startups" className="hover:underline">
+                    Startups
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link to="/events" className="hover:underline">
+                    Events
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link to="/partners" className="hover:underline">
+                    Partners
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="https://tailwindcss.com/"
-                    className="hover:underline"
-                  >
-                    Tailwind CSS
-                  </a>
+                  <Link to="/team" className="hover:underline">
+                    Team
+                  </Link>
                 </li>
               </ul>
             </div>
             <div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Follow us
+                Be a Part of Jitsie
               </h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <a
-                    href="https://github.com/roshanyadav-2109/jitsie-venture-hub"
-                    className="hover:underline "
-                  >
-                    Github
-                  </a>
+                  <Link to="/join" className="hover:underline">
+                    Join The Team
+                  </Link>
+                </li>
+                <li className="mb-4">
+                  <Link to="/team" className="hover:underline">
+                    Management
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="https://discord.gg/4eeurUVvTy"
-                    className="hover:underline"
-                  >
-                    Discord
-                  </a>
+                  <Link to="/team" className="hover:underline">
+                    Board Members
+                  </Link>
                 </li>
               </ul>
             </div>
